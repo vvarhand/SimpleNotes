@@ -29,15 +29,20 @@ export default function App() {
     }
     
     function updateNote(text) {
-        setNotes(oldNotes => oldNotes.map(oldNote => {
-          if(oldNote.id === currentNoteId)  
-                {
-                  //let cutnote = oldNotes.splice(oldNotes.indexOf(oldNote),1);
-                  //oldNotes.splice(0,0,cutnote);
-                  return {...oldNote, body: text }
-                }
-          else {return oldNote}
-        }))
+        setNotes(oldNotes => {
+          const newArray = [];
+          const len = oldNotes.length;
+          for (let i = 0; i < len; i++) {
+            if (oldNotes[i].id === currentNoteId)
+            {
+              newArray.unshift({...oldNotes[i], body:text});
+            }
+            else {
+              newArray.push(oldNotes[i]);
+            }
+          }
+          return newArray;
+        })
     }
     
     function findCurrentNote() {
